@@ -1,17 +1,19 @@
-<template>
-  <div>
-    <header>
-      <h1>My Nuxt 2 / Vue 2 SSR Application</h1>
-    </header>
-    <main>
-      <nuxt />
-    </main>
-  </div>
+<template lang="pug">
+  div
+    header
+      h1 My Nuxt 2 / Vue 2 SSR Application
+    main
+      ProductComparisonTable
 </template>
 
 <script>
+import ProductComparisonTable from '~/components/ProductComparisonTable.vue'
+
 export default {
-  name: 'DefaultLayout'
+  name: 'DefaultLayout',
+  components: {
+    ProductComparisonTable
+  }
 }
 </script>
 

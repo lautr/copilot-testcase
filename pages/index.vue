@@ -1,12 +1,17 @@
-<template>
-  <div>
-    <h1>Welcome to Nuxt 2 / Vue 2 SSR Application</h1>
-  </div>
+<template lang="pug">
+  div
+    h1 Welcome to Nuxt 2 / Vue 2 SSR Application
+    ProductComparisonTable
 </template>
 
 <script>
+import ProductComparisonTable from '~/components/ProductComparisonTable.vue'
+
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  components: {
+    ProductComparisonTable
+  }
 }
 </script>
 

@@ -15,7 +15,9 @@ module.exports = {
   css: [],
   plugins: [],
   buildModules: [],
-  modules: [],
+  modules: [
+    '@nuxtjs/pug-plain-loader'
+  ],
   build: {
     extend(config, ctx) {}
   }
