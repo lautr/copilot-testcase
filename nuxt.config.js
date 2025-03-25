@@ -12,13 +12,4 @@ module.exports = {
     ]
   },
   loading: { color: '#fff' },
-  css: [],
-  plugins: [],
-  buildModules: [],
-  modules: [
-    '@nuxtjs/pug-plain-loader'
-  ],
-  build: {
-    extend(config, ctx) {}
-  }
 }
