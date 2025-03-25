@@ -9,11 +9,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ProductSort',
   methods: {
+    ...mapActions(['sortProducts']),
     updateSortKey(event) {
-      this.$emit('sort', event.target.value)
+      this.sortProducts(event.target.value)
     }
   }
 }

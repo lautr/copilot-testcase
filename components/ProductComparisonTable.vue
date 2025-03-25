@@ -16,12 +16,16 @@
     div(v-if="editingProduct")
       h3 Edit Product
       form(@submit.prevent="saveProduct")
-        ProductField(label="Name" v-model="editingProduct.name")
-        ProductField(label="Price" v-model="editingProduct.price")
-        ProductField(label="Brand" v-model="editingProduct.brand")
-        ProductField(label="Rating" v-model="editingProduct.rating")
+        ProductField(v-for="(value, key) in editingProduct" :key="key" :label="key" v-model="editingProduct[key]")
         button(type="submit") Save
         button(@click="cancelEdit") Cancel
+    button(@click="addProduct") Add Product
+    div(v-if="addingProduct")
+      h3 Add Product
+      form(@submit.prevent="saveNewProduct")
+        ProductField(v-for="(value, key) in newProduct" :key="key" :label="key" v-model="newProduct[key]")
+        button(type="submit") Save
+        button(@click="cancelAdd") Cancel
 </template>
 
 <script>
@@ -30,6 +34,7 @@ import ProductRow from '~/components/ProductRow.vue'
 import ProductField from '~/components/ProductField.vue'
 import ProductSort from '~/components/ProductSort.vue'
 import ProductFilter from '~/components/ProductFilter.vue'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'ProductComparisonTable',
@@ -41,28 +46,67 @@ export default {
   },
   data() {
     return {
-      products: products,
-      filteredProducts: products,
       editingProduct: null,
+      addingProduct: false,
+      newProduct: this.createEmptyProduct(),
       sortKey: '',
       sortOrder: 'asc',
       filterKey: '',
       filterValue: ''
     }
   },
+  computed: {
+    ...mapState(['products', 'filteredProducts'])
+  },
   methods: {
+    ...mapActions(['fetchProducts', 'addProduct', 'editProduct']),
+    createEmptyProduct() {
+      return {
+        id: null,
+        name: '',
+        price: '',
+        brand: '',
+        rating: '',
+        color: '',
+        capacity: '',
+        energyEfficiency: '',
+        noiseLevel: '',
+        dimensions: '',
+        weight: '',
+        waterConsumption: '',
+        programs: [],
+        delayStart: false,
+        childLock: false,
+        warranty: '',
+        material: '',
+        controlType: '',
+        displayType: '',
+        dryingSystem: '',
+        installationType: '',
+        features: []
+      }
+    },
     editProduct(product) {
       this.editingProduct = { ...product }
     },
     saveProduct() {
-      const index = this.products.findIndex(p => p.id === this.editingProduct.id)
-      if (index !== -1) {
-        this.products.splice(index, 1, this.editingProduct)
-        this.editingProduct = null
-      }
+      this.editProduct(this.editingProduct)
+      this.editingProduct = null
     },
     cancelEdit() {
       this.editingProduct = null
+    },
+    addProduct() {
+      this.addingProduct = true
+    },
+    saveNewProduct() {
+      this.addProduct(this.newProduct)
+      this.newProduct = this.createEmptyProduct()
+      this.addingProduct = false
+    },
+    cancelAdd() {
+      this.newProduct = this.createEmptyProduct()
+      this.addingProduct = false
     },
     sortProducts(key) {
       this.sortKey = key
@@ -81,6 +125,9 @@ export default {
         return product[key].toString().toLowerCase().includes(value.toLowerCase())
       })
     }
+  },
+  created() {
+    this.fetchProducts()
   }
 }
 </script>

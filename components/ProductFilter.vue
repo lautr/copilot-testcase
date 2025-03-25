@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
 export default {
   name: 'ProductFilter',
   data() {
@@ -18,14 +20,18 @@ export default {
       filterValue: ''
     }
   },
+  computed: {
+    ...mapState(['products'])
+  },
   methods: {
+    ...mapActions(['filterProducts']),
     updateFilterKey(event) {
       this.filterKey = event.target.value
-      this.$emit('filter', this.filterKey, this.filterValue)
+      this.filterProducts({ key: this.filterKey, value: this.filterValue })
     },
     updateFilterValue(event) {
       this.filterValue = event.target.value
-      this.$emit('filter', this.filterKey, this.filterValue)
+      this.filterProducts({ key: this.filterKey, value: this.filterValue })
     }
   }
 }
