@@ -1,3 +1,5 @@
+const { createStore } = require('./store')
+
 module.exports = {
   mode: 'universal',
   head: {
@@ -12,5 +14,5 @@ module.exports = {
     ]
   },
   loading: { color: '#fff' },
-  store: true
+  store: createStore
 }
