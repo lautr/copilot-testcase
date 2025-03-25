@@ -13,19 +13,9 @@
           th Edit
       tbody
         ProductRow(v-for="product in filteredProducts" :key="product.id" :product="product" @edit="editProduct")
-    div(v-if="editingProduct")
-      h3 Edit Product
-      form(@submit.prevent="saveProduct")
-        ProductField(v-for="(value, key) in editingProduct" :key="key" :label="key" v-model="editingProduct[key]")
-        button(type="submit") Save
-        button(@click="cancelEdit") Cancel
     button(@click="addProduct") Add Product
-    div(v-if="addingProduct")
-      h3 Add Product
-      form(@submit.prevent="saveNewProduct")
-        ProductField(v-for="(value, key) in newProduct" :key="key" :label="key" v-model="newProduct[key]")
-        button(type="submit") Save
-        button(@click="cancelAdd") Cancel
+    ProductModal(:product="editingProduct" :isEditing="true" :isVisible="isEditingModalVisible" @save="saveProduct" @cancel="cancelEdit")
+    ProductModal(:product="newProduct" :isEditing="false" :isVisible="isAddingModalVisible" @save="saveNewProduct" @cancel="cancelAdd")
 </template>
 
 <script>
@@ -34,6 +24,7 @@ import ProductRow from '~/components/ProductRow.vue'
 import ProductField from '~/components/ProductField.vue'
 import ProductSort from '~/components/ProductSort.vue'
 import ProductFilter from '~/components/ProductFilter.vue'
+import ProductModal from '~/components/ProductModal.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -42,7 +33,8 @@ export default {
     ProductRow,
     ProductField,
     ProductSort,
-    ProductFilter
+    ProductFilter,
+    ProductModal
   },
   data() {
     return {
@@ -52,7 +44,9 @@ export default {
       sortKey: '',
       sortOrder: 'asc',
       filterKey: '',
-      filterValue: ''
+      filterValue: '',
+      isEditingModalVisible: false,
+      isAddingModalVisible: false
     }
   },
   computed: {
@@ -88,25 +82,28 @@ export default {
     },
     editProduct(product) {
       this.editingProduct = { ...product }
+      this.isEditingModalVisible = true
     },
     saveProduct() {
       this.editProduct(this.editingProduct)
       this.editingProduct = null
+      this.isEditingModalVisible = false
     },
     cancelEdit() {
       this.editingProduct = null
+      this.isEditingModalVisible = false
     },
     addProduct() {
-      this.addingProduct = true
+      this.isAddingModalVisible = true
     },
     saveNewProduct() {
       this.addProduct(this.newProduct)
       this.newProduct = this.createEmptyProduct()
-      this.addingProduct = false
+      this.isAddingModalVisible = false
     },
     cancelAdd() {
       this.newProduct = this.createEmptyProduct()
-      this.addingProduct = false
+      this.isAddingModalVisible = false
     },
     sortProducts(key) {
       this.sortKey = key

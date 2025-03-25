@@ -1,11 +1,11 @@
 <template lang="pug">
   div
     label {{ label }}
-    input(v-if="inputType === 'text'" type="text" v-model="value" @input="updateValue")
-    input(v-if="inputType === 'number'" type="number" v-model="value" @input="updateValue")
-    input(v-if="inputType === 'checkbox'" type="checkbox" v-model="value" @change="updateValue")
-    select(v-if="inputType === 'select'" v-model="value" @change="updateValue")
-      option(v-for="option in options" :key="option" :value="option") {{ option }}
+    input(v-if="fieldType === 'text'" type="text" v-model="value" @input="updateValue")
+    input(v-if="fieldType === 'number'" type="number" v-model="value" @input="updateValue")
+    input(v-if="fieldType === 'checkbox'" type="checkbox" v-model="value" @change="updateValue")
+    select(v-if="fieldType === 'select'" v-model="value" @change="updateValue")
+      option(v-for="option in fieldOptions" :key="option" :value="option") {{ option }}
 </template>
 
 <script>
@@ -20,11 +20,11 @@ export default {
       type: [String, Number, Boolean, Array],
       required: true
     },
-    inputType: {
+    fieldType: {
       type: String,
       required: true
     },
-    options: {
+    fieldOptions: {
       type: Array,
       required: false,
       default: () => []
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     updateValue(event) {
-      if (this.inputType === 'checkbox') {
+      if (this.fieldType === 'checkbox') {
         this.$emit('input', event.target.checked)
       } else {
         this.$emit('input', event.target.value)
