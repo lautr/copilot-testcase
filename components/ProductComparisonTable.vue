@@ -26,6 +26,7 @@ import ProductSort from '~/components/ProductSort.vue'
 import ProductFilter from '~/components/ProductFilter.vue'
 import ProductModal from '~/components/ProductModal.vue'
 import { mapActions, mapState } from 'vuex'
+import store from '~/store'
 
 export default {
   name: 'ProductComparisonTable',

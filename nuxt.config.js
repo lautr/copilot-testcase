@@ -12,4 +12,5 @@ module.exports = {
     ]
   },
   loading: { color: '#fff' },
+  store: true
 }
