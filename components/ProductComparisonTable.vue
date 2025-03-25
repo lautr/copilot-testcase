@@ -13,42 +13,31 @@
           th Edit
       tbody
         ProductRow(v-for="product in filteredProducts" :key="product.id" :product="product" @edit="editProduct")
-    div(v-if="editingProduct")
-      h3 Edit Product
-      form(@submit.prevent="saveProduct")
-        ProductField(v-for="(value, key) in editingProduct" :key="key" :label="key" v-model="editingProduct[key]")
-        button(type="submit") Save
-        button(@click="cancelEdit") Cancel
+    ProductModal(v-if="editingProduct || addingProduct" :product="modalProduct" :isEditing="isEditing" :isAdding="isAdding" @save="handleSave" @cancel="handleCancel" @add="handleAdd")
     button(@click="addProduct") Add Product
-    div(v-if="addingProduct")
-      h3 Add Product
-      form(@submit.prevent="saveNewProduct")
-        ProductField(v-for="(value, key) in newProduct" :key="key" :label="key" v-model="newProduct[key]")
-        button(type="submit") Save
-        button(@click="cancelAdd") Cancel
 </template>
 
 <script>
 import products from '~/data/products.json'
 import ProductRow from '~/components/ProductRow.vue'
-import ProductField from '~/components/ProductField.vue'
 import ProductSort from '~/components/ProductSort.vue'
 import ProductFilter from '~/components/ProductFilter.vue'
+import ProductModal from '~/components/ProductModal.vue'
 import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'ProductComparisonTable',
   components: {
     ProductRow,
-    ProductField,
     ProductSort,
-    ProductFilter
+    ProductFilter,
+    ProductModal
   },
   data() {
     return {
       editingProduct: null,
       addingProduct: false,
-      newProduct: this.createEmptyProduct(),
+      modalProduct: this.createEmptyProduct(),
       sortKey: '',
       sortOrder: 'asc',
       filterKey: '',
@@ -86,27 +75,25 @@ export default {
         features: []
       }
     },
+    handleSave(product) {
+      this.editProduct(product)
+      this.editingProduct = null
+    },
+    handleCancel() {
+      this.editingProduct = null
+      this.addingProduct = false
+    },
+    handleAdd(product) {
+      this.addProduct(product)
+      this.addingProduct = false
+    },
     editProduct(product) {
       this.editingProduct = { ...product }
-    },
-    saveProduct() {
-      this.editProduct(this.editingProduct)
-      this.editingProduct = null
-    },
-    cancelEdit() {
-      this.editingProduct = null
+      this.modalProduct = { ...product }
     },
     addProduct() {
       this.addingProduct = true
-    },
-    saveNewProduct() {
-      this.addProduct(this.newProduct)
-      this.newProduct = this.createEmptyProduct()
-      this.addingProduct = false
-    },
-    cancelAdd() {
-      this.newProduct = this.createEmptyProduct()
-      this.addingProduct = false
+      this.modalProduct = this.createEmptyProduct()
     },
     sortProducts(key) {
       this.sortKey = key
