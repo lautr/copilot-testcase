@@ -25,8 +25,6 @@ import ProductField from '~/components/ProductField.vue'
 import ProductSort from '~/components/ProductSort.vue'
 import ProductFilter from '~/components/ProductFilter.vue'
 import ProductModal from '~/components/ProductModal.vue'
-import { mapActions, mapState } from 'vuex'
-import store from '~/store'
 
 export default {
   name: 'ProductComparisonTable',
@@ -39,6 +37,8 @@ export default {
   },
   data() {
     return {
+      products: [],
+      filteredProducts: [],
       editingProduct: null,
       addingProduct: false,
       newProduct: this.createEmptyProduct(),
@@ -50,11 +50,39 @@ export default {
       isAddingModalVisible: false
     }
   },
-  computed: {
-    ...mapState(['products', 'filteredProducts'])
-  },
   methods: {
-    ...mapActions(['fetchProducts', 'addProduct', 'editProduct']),
+    fetchProducts() {
+      this.products = products
+      this.filteredProducts = products
+    },
+    addProduct(product) {
+      this.products.push(product)
+      this.filteredProducts = this.products
+    },
+    editProduct(editedProduct) {
+      const index = this.products.findIndex(product => product.id === editedProduct.id)
+      if (index !== -1) {
+        this.products.splice(index, 1, editedProduct)
+        this.filteredProducts = this.products
+      }
+    },
+    filterProducts(key, value) {
+      this.filterKey = key
+      this.filterValue = value
+      this.filteredProducts = this.products.filter(product => {
+        return product[key].toString().toLowerCase().includes(value.toLowerCase())
+      })
+    },
+    sortProducts(key) {
+      this.sortKey = key
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
+      this.filteredProducts.sort((a, b) => {
+        let result = 0
+        if (a[key] < b[key]) result = -1
+        if (a[key] > b[key]) result = 1
+        return this.sortOrder === 'asc' ? result : -result
+      })
+    },
     createEmptyProduct() {
       return {
         id: null,
@@ -105,23 +133,6 @@ export default {
     cancelAdd() {
       this.newProduct = this.createEmptyProduct()
       this.isAddingModalVisible = false
-    },
-    sortProducts(key) {
-      this.sortKey = key
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
-      this.filteredProducts.sort((a, b) => {
-        let result = 0
-        if (a[key] < b[key]) result = -1
-        if (a[key] > b[key]) result = 1
-        return this.sortOrder === 'asc' ? result : -result
-      })
-    },
-    filterProducts(key, value) {
-      this.filterKey = key
-      this.filterValue = value
-      this.filteredProducts = this.products.filter(product => {
-        return product[key].toString().toLowerCase().includes(value.toLowerCase())
-      })
     }
   },
   created() {

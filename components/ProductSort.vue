@@ -9,13 +9,12 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import store from '~/store'
-
 export default {
   name: 'ProductSort',
   methods: {
-    ...mapActions(['sortProducts']),
+    sortProducts(key) {
+      this.$emit('sort', key)
+    },
     updateSortKey(event) {
       this.sortProducts(event.target.value)
     }

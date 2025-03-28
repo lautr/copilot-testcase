@@ -9,9 +9,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import store from '~/store'
-
 export default {
   name: 'ProductRow',
   props: {
@@ -21,9 +18,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['editProduct']),
     editProduct() {
-      this.editProduct(this.product)
+      this.$emit('edit', this.product)
     }
   }
 }
