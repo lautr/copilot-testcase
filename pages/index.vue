@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    h1 Welcome to Nuxt 2 / Vue 2 SSR Application
+    h1(class="page-title") Welcome to Nuxt 2 / Vue 2 SSR Application
     ProductComparisonTable
 </template>
 
@@ -24,7 +24,12 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  color: #333;
+.page-title {
+  color: #ff6600;
+  font-family: 'Comic Sans MS', sans-serif;
+  background-color: #ffcc00;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
 }
 </style>

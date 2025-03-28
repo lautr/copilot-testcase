@@ -3,17 +3,17 @@
     h2 Product Comparison Table
     ProductSort(@sort="sortProducts")
     ProductFilter(@filter="filterProducts")
-    table
+    table(class="product-comparison-table")
       thead
         tr
-          th Name
-          th Price
-          th Brand
-          th Rating
-          th Edit
+          th(class="product-comparison-table__header") Name
+          th(class="product-comparison-table__header") Price
+          th(class="product-comparison-table__header") Brand
+          th(class="product-comparison-table__header") Rating
+          th(class="product-comparison-table__header") Edit
       tbody
         ProductRow(v-for="product in filteredProducts" :key="product.id" :product="product" @edit="editProduct")
-    button(@click="addProduct") Add Product
+    button(class="btn btn--primary" @click="addProduct") Add Product
     ProductModal(:product="editingProduct" :isEditing="true" :isVisible="isEditingModalVisible" @save="saveProduct" @cancel="cancelEdit")
     ProductModal(:product="newProduct" :isEditing="false" :isVisible="isAddingModalVisible" @save="saveNewProduct" @cancel="cancelAdd")
 </template>
@@ -131,18 +131,43 @@ export default {
 </script>
 
 <style scoped>
-table {
+.product-comparison-table {
   width: 100%;
   border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  background-color: #ffcc00;
+  border-radius: 10px;
+  overflow: hidden;
 }
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.product-comparison-table__header {
+  border: 1px solid #000;
+  padding: 10px;
+  background-color: #ff6600;
+  color: #fff;
+  text-align: left;
 }
-th {
-  background-color: #f2f2f2;
+.product-comparison-table__cell {
+  border: 1px solid #000;
+  padding: 10px;
+  background-color: #fff;
+  color: #000;
 }
-button {
-  margin: 0 5px;
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn--primary {
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+}
+.btn--primary:hover {
+  background-color: #ff3300;
 }
 </style>

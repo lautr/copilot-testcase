@@ -6,8 +6,8 @@
       form(@submit.prevent="isEditing ? saveProduct() : saveNewProduct()")
         div(v-for="(value, key) in product" :key="key")
           ProductField(:label="key" v-model="product[key]" :inputType="getInputType(key)" :options="getOptions(key)")
-        button(type="submit") {{ isEditing ? 'Save' : 'Add' }}
-        button(type="button" @click="isEditing ? cancelEdit() : cancelAdd()") Cancel
+        button(type="submit" class="btn btn--primary") {{ isEditing ? 'Save' : 'Add' }}
+        button(type="button" @click="isEditing ? cancelEdit() : cancelAdd()" class="btn btn--secondary") Cancel
 </template>
 
 <script>
@@ -79,26 +79,54 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-family: 'Comic Sans MS', sans-serif;
 }
 .modal-content {
-  background-color: #fefefe;
+  background-color: #ffcc00;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 2px solid #ff6600;
+  border-radius: 10px;
   width: 80%;
 }
 .close {
-  color: #aaa;
+  color: #ff6600;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  cursor: pointer;
 }
 .close:hover,
 .close:focus {
-  color: black;
+  color: #ff3300;
   text-decoration: none;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
   cursor: pointer;
+  margin-right: 10px;
+}
+.btn--primary {
+  background-color: #ff6600;
+  color: #fff;
+  border: none;
+}
+.btn--primary:hover {
+  background-color: #ff3300;
+}
+.btn--secondary {
+  background-color: #fff;
+  color: #ff6600;
+  border: 2px solid #ff6600;
+}
+.btn--secondary:hover {
+  background-color: #ffcc00;
 }
 </style>

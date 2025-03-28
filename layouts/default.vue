@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    header
-      h1 My Nuxt 2 / Vue 2 SSR Application
-    main
+    header(class="header")
+      h1(class="header__title") My Nuxt 2 / Vue 2 SSR Application
+    main(class="main-content")
       ProductComparisonTable
 </template>
 
@@ -26,10 +26,19 @@ export default {
 </script>
 
 <style scoped>
-header {
-  background-color: #333;
-  color: #fff;
+.header {
+  background-color: #ffcc00;
+  color: #ff6600;
   padding: 1rem;
   text-align: center;
+  border-radius: 10px;
+  font-family: 'Comic Sans MS', sans-serif;
+}
+.header__title {
+  margin: 0;
+}
+.main-content {
+  padding: 1rem;
+  font-family: 'Comic Sans MS', sans-serif;
 }
 </style>
