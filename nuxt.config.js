@@ -14,5 +14,8 @@ module.exports = {
     ]
   },
   loading: { color: '#fff' },
-  store: createStore
+  store: createStore,
+  css: [
+    '~/assets/css/utilities.css'
+  ]
 }

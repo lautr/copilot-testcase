@@ -1,13 +1,13 @@
 <template lang="pug">
   div(v-if="isVisible" class="modal")
-    div(class="modal-content")
+    div(class="modal-content p-4")
       span(class="close" @click="closeModal") &times;
       h2 {{ isEditing ? 'Edit Product' : 'Add Product' }}
-      form(@submit.prevent="isEditing ? saveProduct() : saveNewProduct()")
-        div(v-for="(value, key) in product" :key="key")
-          ProductField(:label="key" v-model="product[key]" :inputType="getInputType(key)" :options="getOptions(key)")
-        button(type="submit" class="btn btn--primary") {{ isEditing ? 'Save' : 'Add' }}
-        button(type="button" @click="isEditing ? cancelEdit() : cancelAdd()" class="btn btn--secondary") Cancel
+      form(@submit.prevent="isEditing ? saveProduct() : saveNewProduct()" class="m-2")
+        div(v-for="(value, key) in product" :key="key" class="m-2")
+          ProductField(:label="key" v-model="product[key]" :inputType="getInputType(key)" :options="getOptions(key)" class="m-2")
+        button(type="submit" class="btn btn--primary m-2") {{ isEditing ? 'Save' : 'Add' }}
+        button(type="button" @click="isEditing ? cancelEdit() : cancelAdd()" class="btn btn--secondary m-2") Cancel
 </template>
 
 <script>

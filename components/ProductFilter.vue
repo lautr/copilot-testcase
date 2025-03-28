@@ -1,12 +1,12 @@
 <template lang="pug">
-  div(class="product-filter")
+  div(class="product-filter m-2")
     label(class="product-filter__label") Filter by:
-    select(@change="updateFilterKey" class="product-filter__select")
+    select(@change="updateFilterKey" class="product-filter__select p-2")
       option(value="name" class="product-filter__option") Name
       option(value="price" class="product-filter__option") Price
       option(value="brand" class="product-filter__option") Brand
       option(value="rating" class="product-filter__option") Rating
-    input(type="text" v-model="filterValue" @input="updateFilterValue" class="product-filter__input")
+    input(type="text" v-model="filterValue" @input="updateFilterValue" class="product-filter__input p-2")
 </template>
 
 <script>

@@ -1,7 +1,7 @@
 <template lang="pug">
-  div(class="product-sort")
+  div(class="product-sort m-2")
     label(class="product-sort__label") Sort by:
-    select(@change="updateSortKey" class="product-sort__select")
+    select(@change="updateSortKey" class="product-sort__select p-2")
       option(value="name" class="product-sort__option") Name
       option(value="price" class="product-sort__option") Price
       option(value="brand" class="product-sort__option") Brand

@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    header(class="header")
-      h1(class="header__title") My Nuxt 2 / Vue 2 SSR Application
-    main(class="main-content")
+    header(class="header p-4")
+      h1(class="header__title m-2") My Nuxt 2 / Vue 2 SSR Application
+    main(class="main-content p-4")
       ProductComparisonTable
 </template>
 

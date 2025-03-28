@@ -1,11 +1,11 @@
 <template lang="pug">
-  tr
-    td {{ product.name }}
-    td {{ product.price }}
-    td {{ product.brand }}
-    td {{ product.rating }}
-    td
-      button(class="btn btn--edit" @click="editProduct") Edit
+  tr(class="p-2")
+    td(class="p-2") {{ product.name }}
+    td(class="p-2") {{ product.price }}
+    td(class="p-2") {{ product.brand }}
+    td(class="p-2") {{ product.rating }}
+    td(class="p-2")
+      button(class="btn btn--edit m-1" @click="editProduct") Edit
 </template>
 
 <script>

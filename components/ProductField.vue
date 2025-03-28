@@ -1,10 +1,10 @@
 <template lang="pug">
-  div(class="product-field")
+  div(class="product-field m-2")
     label(class="product-field__label") {{ label }}
-    input(v-if="fieldType === 'text'" type="text" v-model="value" @input="updateValue" class="product-field__input product-field__input--text")
-    input(v-if="fieldType === 'number'" type="number" v-model="value" @input="updateValue" class="product-field__input product-field__input--number")
-    input(v-if="fieldType === 'checkbox'" type="checkbox" v-model="value" @change="updateValue" class="product-field__input product-field__input--checkbox")
-    select(v-if="fieldType === 'select'" v-model="value" @change="updateValue" class="product-field__select")
+    input(v-if="fieldType === 'text'" type="text" v-model="value" @input="updateValue" class="product-field__input product-field__input--text p-2")
+    input(v-if="fieldType === 'number'" type="number" v-model="value" @input="updateValue" class="product-field__input product-field__input--number p-2")
+    input(v-if="fieldType === 'checkbox'" type="checkbox" v-model="value" @change="updateValue" class="product-field__input product-field__input--checkbox p-1")
+    select(v-if="fieldType === 'select'" v-model="value" @change="updateValue" class="product-field__select p-2")
       option(v-for="option in fieldOptions" :key="option" :value="option" class="product-field__option") {{ option }}
 </template>
 

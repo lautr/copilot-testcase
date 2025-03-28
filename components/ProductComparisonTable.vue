@@ -1,21 +1,21 @@
 <template lang="pug">
   div
-    h2 Product Comparison Table
-    ProductSort(@sort="sortProducts")
-    ProductFilter(@filter="filterProducts")
-    table(class="product-comparison-table")
+    h2(class="m-2") Product Comparison Table
+    ProductSort(@sort="sortProducts" class="m-2")
+    ProductFilter(@filter="filterProducts" class="m-2")
+    table(class="product-comparison-table w-100")
       thead
         tr
-          th(class="product-comparison-table__header") Name
-          th(class="product-comparison-table__header") Price
-          th(class="product-comparison-table__header") Brand
-          th(class="product-comparison-table__header") Rating
-          th(class="product-comparison-table__header") Edit
+          th(class="product-comparison-table__header p-2") Name
+          th(class="product-comparison-table__header p-2") Price
+          th(class="product-comparison-table__header p-2") Brand
+          th(class="product-comparison-table__header p-2") Rating
+          th(class="product-comparison-table__header p-2") Edit
       tbody
-        ProductRow(v-for="product in filteredProducts" :key="product.id" :product="product" @edit="editProduct")
-    button(class="btn btn--primary" @click="addProduct") Add Product
-    ProductModal(:product="editingProduct" :isEditing="true" :isVisible="isEditingModalVisible" @save="saveProduct" @cancel="cancelEdit")
-    ProductModal(:product="newProduct" :isEditing="false" :isVisible="isAddingModalVisible" @save="saveNewProduct" @cancel="cancelAdd")
+        ProductRow(v-for="product in filteredProducts" :key="product.id" :product="product" @edit="editProduct" class="p-2")
+    button(class="btn btn--primary m-2" @click="addProduct") Add Product
+    ProductModal(:product="editingProduct" :isEditing="true" :isVisible="isEditingModalVisible" @save="saveProduct" @cancel="cancelEdit" class="m-2")
+    ProductModal(:product="newProduct" :isEditing="false" :isVisible="isAddingModalVisible" @save="saveNewProduct" @cancel="cancelAdd" class="m-2")
 </template>
 
 <script>
