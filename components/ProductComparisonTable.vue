@@ -148,9 +148,6 @@ export default {
       this.newProduct = this.createEmptyProduct()
       this.isAddingModalVisible = false
     }
-  },
-  created() {
-    this.fetchProducts()
   }
 }
 </script>

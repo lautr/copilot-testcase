@@ -6,19 +6,11 @@
 
 <script>
 import ProductComparisonTable from '~/components/ProductComparisonTable.vue'
-import ProductRow from '~/components/ProductRow.vue'
-import ProductField from '~/components/ProductField.vue'
-import ProductSort from '~/components/ProductSort.vue'
-import ProductFilter from '~/components/ProductFilter.vue'
 
 export default {
   name: 'IndexPage',
   components: {
-    ProductComparisonTable,
-    ProductRow,
-    ProductField,
-    ProductSort,
-    ProductFilter
+    ProductComparisonTable
   }
 }
 </script>
