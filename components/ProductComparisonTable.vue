@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import products from '~/data/products.json'
+import * as ApiService from '~/services/ApiService'
 import ProductRow from '~/components/ProductRow.vue'
 import ProductField from '~/components/ProductField.vue'
 import ProductSort from '~/components/ProductSort.vue'
@@ -52,18 +52,32 @@ export default {
   },
   methods: {
     fetchProducts() {
-      this.products = products
-      this.filteredProducts = products
+      this.products = ApiService.find()
+      this.filteredProducts = this.products
     },
     addProduct(product) {
-      this.products.push(product)
+      const newProduct = ApiService.create(product)
+      this.products.push(newProduct)
       this.filteredProducts = this.products
     },
     editProduct(editedProduct) {
-      const index = this.products.findIndex(product => product.id === editedProduct.id)
-      if (index !== -1) {
-        this.products.splice(index, 1, editedProduct)
-        this.filteredProducts = this.products
+      const updatedProduct = ApiService.update(editedProduct)
+      if (updatedProduct) {
+        const index = this.products.findIndex(product => product.id === updatedProduct.id)
+        if (index !== -1) {
+          this.products.splice(index, 1, updatedProduct)
+          this.filteredProducts = this.products
+        }
+      }
+    },
+    deleteProduct(productId) {
+      const deletedProduct = ApiService.remove(productId)
+      if (deletedProduct) {
+        const index = this.products.findIndex(product => product.id === deletedProduct.id)
+        if (index !== -1) {
+          this.products.splice(index, 1)
+          this.filteredProducts = this.products
+        }
       }
     },
     filterProducts(key, value) {
