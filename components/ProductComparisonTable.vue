@@ -6,10 +6,7 @@
     table(class="product-comparison-table w-100")
       thead
         tr
-          th(class="product-comparison-table__header p-2") Name
-          th(class="product-comparison-table__header p-2") Price
-          th(class="product-comparison-table__header p-2") Brand
-          th(class="product-comparison-table__header p-2") Rating
+          th(v-for="column in columns" :key="column.name" class="product-comparison-table__header p-2") {{ column.name }}
           th(class="product-comparison-table__header p-2") Edit
       tbody
         ProductRow(v-for="product in filteredProducts" :key="product.id" :product="product" @edit="editProduct" class="p-2")
@@ -47,13 +44,15 @@ export default {
       filterKey: '',
       filterValue: '',
       isEditingModalVisible: false,
-      isAddingModalVisible: false
+      isAddingModalVisible: false,
+      columns: []
     }
   },
   methods: {
     fetchProducts() {
       this.products = ApiService.find()
       this.filteredProducts = this.products
+      this.columns = ApiService.getSchema()
     },
     addProduct(product) {
       const newProduct = ApiService.create(product)
@@ -148,6 +147,9 @@ export default {
       this.newProduct = this.createEmptyProduct()
       this.isAddingModalVisible = false
     }
+  },
+  created() {
+    this.fetchProducts()
   }
 }
 </script>

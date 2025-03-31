@@ -33,3 +33,13 @@ export function remove(productId) {
   }
   return null;
 }
+
+export function getSchema() {
+  if (internalDataset.length === 0) return [];
+
+  const sampleProduct = internalDataset[0];
+  return Object.keys(sampleProduct).map(key => ({
+    name: key,
+    type: 'string'
+  }));
+}
