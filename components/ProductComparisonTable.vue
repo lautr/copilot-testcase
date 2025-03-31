@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import * as ApiService from '~/services/ApiService'
 import ProductRow from '~/components/ProductRow.vue'
 import ProductField from '~/components/ProductField.vue'
 import ProductSort from '~/components/ProductSort.vue'
@@ -32,10 +31,19 @@ export default {
     ProductFilter,
     ProductModal
   },
+  props: {
+    products: {
+      type: Array,
+      required: true
+    },
+    columns: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
-      products: [],
-      filteredProducts: [],
+      filteredProducts: this.products,
       editingProduct: null,
       addingProduct: false,
       newProduct: this.createEmptyProduct(),
@@ -44,40 +52,18 @@ export default {
       filterKey: '',
       filterValue: '',
       isEditingModalVisible: false,
-      isAddingModalVisible: false,
-      columns: []
+      isAddingModalVisible: false
     }
   },
   methods: {
-    fetchProducts() {
-      this.products = ApiService.find()
-      this.filteredProducts = this.products
-      this.columns = ApiService.getSchema()
-    },
     addProduct(product) {
-      const newProduct = ApiService.create(product)
-      this.products.push(newProduct)
-      this.filteredProducts = this.products
+      this.$emit('add-product', product)
     },
     editProduct(editedProduct) {
-      const updatedProduct = ApiService.update(editedProduct)
-      if (updatedProduct) {
-        const index = this.products.findIndex(product => product.id === updatedProduct.id)
-        if (index !== -1) {
-          this.products.splice(index, 1, updatedProduct)
-          this.filteredProducts = this.products
-        }
-      }
+      this.$emit('edit-product', editedProduct)
     },
     deleteProduct(productId) {
-      const deletedProduct = ApiService.remove(productId)
-      if (deletedProduct) {
-        const index = this.products.findIndex(product => product.id === deletedProduct.id)
-        if (index !== -1) {
-          this.products.splice(index, 1)
-          this.filteredProducts = this.products
-        }
-      }
+      this.$emit('delete-product', productId)
     },
     filterProducts(key, value) {
       this.filterKey = key
@@ -147,9 +133,6 @@ export default {
       this.newProduct = this.createEmptyProduct()
       this.isAddingModalVisible = false
     }
-  },
-  created() {
-    this.fetchProducts()
   }
 }
 </script>

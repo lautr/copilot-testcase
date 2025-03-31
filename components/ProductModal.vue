@@ -12,7 +12,6 @@
 
 <script>
 import ProductField from '~/components/ProductField.vue'
-import { getSchema } from '~/services/ApiService'
 
 export default {
   name: 'ProductModal',
@@ -31,11 +30,10 @@ export default {
     isVisible: {
       type: Boolean,
       required: true
-    }
-  },
-  data() {
-    return {
-      schema: []
+    },
+    schema: {
+      type: Array,
+      required: true
     }
   },
   methods: {
@@ -70,13 +68,7 @@ export default {
         features: ['Adjustable Racks', 'Half Load', 'Auto Open', 'AquaStop', 'Sensor Wash', 'WiFi', 'Steam Wash']
       }
       return options[key] || []
-    },
-    loadSchema() {
-      this.schema = getSchema()
     }
-  },
-  created() {
-    this.loadSchema()
   }
 }
 </script>
